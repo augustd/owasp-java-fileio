@@ -53,6 +53,7 @@ public class SafeFile extends File {
     }
 
     private void doDirCheck(String path) throws ValidationException {
+        if (path == null) return;
 	Matcher m1 = DIR_BLACKLIST_PAT.matcher(path);
 	if (m1.find()) {
 	    throw new ValidationException("Invalid directory", "Directory path (" + path + ") contains illegal character: " + m1.group());
