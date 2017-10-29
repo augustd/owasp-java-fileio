@@ -38,8 +38,9 @@ public class HTMLEntityCodec extends Codec {
      *
      * Encodes a Character for safe use in an HTML entity field.
      *
-     * @param immune
+     * @param immune An array of characters that will not be encoded. 
      */
+    @Override
     public String encodeCharacter(char[] immune, Character c) {
 
 	// check for immune characters
@@ -74,8 +75,9 @@ public class HTMLEntityCodec extends Codec {
      *
      * Returns the decoded version of the character starting at index, or null if no decoding is possible.
      *
-     * Formats all are legal both with and without semi-colon, upper/lower case: &#dddd; &#xhhhh; &name;
+     * Formats all are legal both with and without semi-colon, upper/lower case: &amp;#dddd; &amp;#xhhhh; &amp;name;
      */
+    @Override
     public Character decodeCharacter(PushbackString input) {
 	input.mark();
 	Character first = input.next();

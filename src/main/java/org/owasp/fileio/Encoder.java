@@ -81,6 +81,7 @@ public class Encoder {
 
     /**
      * Instantiates a new DefaultEncoder with the default codecs
+     * @param codecs A List of Codecs to use
      */
     public Encoder(List<Codec> codecs) {
 	this.codecs = codecs;

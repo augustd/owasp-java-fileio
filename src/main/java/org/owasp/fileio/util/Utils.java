@@ -18,7 +18,7 @@ import java.util.Set;
 /**
  * This class provides a number of utility functions.
  *
- * @author August Detlefsen <augustd at codemagi dot com>
+ * @author August Detlefsen [augustd at codemagi dot com]
  */
 public class Utils {
 

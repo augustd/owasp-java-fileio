@@ -43,7 +43,7 @@ public abstract class Codec {
     /**
      * Encode a String so that it can be safely used in a specific context.
      *
-     * @param immune
+     * @param immune An array of characters that will not be encoded.
      * @param input the String to encode
      * @return the encoded String
      */
@@ -59,7 +59,7 @@ public abstract class Codec {
     /**
      * Default implementation that should be overridden in specific codecs.
      *
-     * @param immune
+     * @param immune An array of characters that will not be encoded.
      * @param c the Character to encode
      * @return the encoded Character
      */
@@ -123,9 +123,9 @@ public abstract class Codec {
     /**
      * Utility to search a char[] for a specific char.
      *
-     * @param c
-     * @param array
-     * @return
+     * @param c The character to search for
+     * @param array The array of characters to search
+     * @return true if the array contains the character to search for
      */
     public static boolean containsCharacter(char c, char[] array) {
 	for (char ch : array) {

@@ -28,7 +28,7 @@ import org.owasp.fileio.util.NullSafe;
  *
  * <b>NOTE:</b><br>
  * <ul>
- * <li>{@link Map.remove(Object)} is not supported.</li>
+ * <li>java.util.Map.remove(java.lang.Object) is not supported.</li>
  * <li>
  * If deletion support is added the max key length will need work or removal.
  * </li>
@@ -405,6 +405,7 @@ public class HashTrie<T> implements Trie<T> {
      * @param key The key to lookup
      * @return Entry with the longest matching key.
      */
+    @Override
     public Map.Entry<CharSequence, T> getLongestMatch(CharSequence key) {
 	if (root == null || key == null) {
 	    return null;
@@ -419,6 +420,7 @@ public class HashTrie<T> implements Trie<T> {
      * @return Entry with the longest matching key.
      * @throws IOException if keyIn.read() or keyIn.unread() does.
      */
+    @Override
     public Map.Entry<CharSequence, T> getLongestMatch(PushbackReader keyIn) throws IOException {
 	if (root == null || keyIn == null) {
 	    return null;
@@ -431,6 +433,7 @@ public class HashTrie<T> implements Trie<T> {
      *
      * @return max key length.
      */
+    @Override
     public int getMaxKeyLength() {
 	return maxKeyLen;
     }
@@ -445,6 +448,7 @@ public class HashTrie<T> implements Trie<T> {
     /**
      * Clear all entries.
      */
+    @Override
     public void clear() {
 	root = null;
 	maxKeyLen = -1;
@@ -454,6 +458,7 @@ public class HashTrie<T> implements Trie<T> {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean containsKey(Object key) {
 	return (get(key) != null);
     }
@@ -461,6 +466,7 @@ public class HashTrie<T> implements Trie<T> {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean containsValue(Object value) {
 	if (root == null) {
 	    return false;
@@ -472,9 +478,10 @@ public class HashTrie<T> implements Trie<T> {
      * Add mapping.
      *
      * @param key The mapping's key.
-     * @value value The mapping's value
+     * @param value value The mapping's value
      * @throws NullPointerException if key or value is null.
      */
+    @Override
     public T put(CharSequence key, T value) throws NullPointerException {
 	int len;
 	T old;
@@ -486,7 +493,7 @@ public class HashTrie<T> implements Trie<T> {
 	    throw new NullPointerException("Null values are not handled");
 	}
 	if (root == null) {
-	    root = new Node<T>();
+	    root = new Node<>();
 	}
 	if ((old = root.put(key, 0, value)) != null) {
 	    return old;
@@ -506,6 +513,7 @@ public class HashTrie<T> implements Trie<T> {
      * @return previous value
      * @throws UnsupportedOperationException always.
      */
+    @Override
     public T remove(Object key) throws UnsupportedOperationException {
 	throw new UnsupportedOperationException();
     }
@@ -513,6 +521,7 @@ public class HashTrie<T> implements Trie<T> {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void putAll(Map<? extends CharSequence, ? extends T> map) {
 	for (Map.Entry<? extends CharSequence, ? extends T> entry : map.entrySet()) {
 	    put(entry.getKey(), entry.getValue());
@@ -522,8 +531,9 @@ public class HashTrie<T> implements Trie<T> {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Set<CharSequence> keySet() {
-	Set<CharSequence> keys = new HashSet<CharSequence>(size);
+	Set<CharSequence> keys = new HashSet<>(size);
 
 	if (root == null) {
 	    return keys;
@@ -534,8 +544,9 @@ public class HashTrie<T> implements Trie<T> {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Collection<T> values() {
-	ArrayList<T> values = new ArrayList<T>(size());
+	ArrayList<T> values = new ArrayList<>(size());
 
 	if (root == null) {
 	    return values;
@@ -546,8 +557,9 @@ public class HashTrie<T> implements Trie<T> {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Set<Map.Entry<CharSequence, T>> entrySet() {
-	Set<Map.Entry<CharSequence, T>> entries = new HashSet<Map.Entry<CharSequence, T>>(size());
+	Set<Map.Entry<CharSequence, T>> entries = new HashSet<>(size());
 
 	if (root == null) {
 	    return entries;
@@ -561,6 +573,7 @@ public class HashTrie<T> implements Trie<T> {
      * @param key The key to look up.
      * @return The value for key or null if the key is not found.
      */
+    @Override
     public T get(Object key) {
 	if (root == null || key == null) {
 	    return null;
@@ -576,6 +589,7 @@ public class HashTrie<T> implements Trie<T> {
      *
      * @return the number or entries.
      */
+    @Override
     public int size() {
 	return size;
     }
@@ -633,6 +647,7 @@ public class HashTrie<T> implements Trie<T> {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isEmpty() {
 	return (size() == 0);
     }

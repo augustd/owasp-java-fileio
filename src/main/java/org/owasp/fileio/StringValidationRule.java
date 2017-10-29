@@ -50,6 +50,7 @@ public class StringValidationRule {
     }
 
     /**
+     * @param pattern A String which will be compiled into a regular expression pattern to add to the whitelist
      * @throws IllegalArgumentException if pattern is null
      */
     public void addWhitelistPattern(String pattern) {
@@ -64,6 +65,7 @@ public class StringValidationRule {
     }
 
     /**
+     * @param p A regular expression pattern to add to the whitelist
      * @throws IllegalArgumentException if p is null
      */
     public void addWhitelistPattern(Pattern p) {
@@ -74,6 +76,8 @@ public class StringValidationRule {
     }
 
     /**
+     * @param pattern A String which will be compiled into a regular expression pattern to add to the blacklist
+
      * @throws IllegalArgumentException if pattern is null
      */
     public void addBlacklistPattern(String pattern) {
@@ -88,6 +92,7 @@ public class StringValidationRule {
     }
 
     /**
+     * @param p A regular expression pattern to add to the blacklist
      * @throws IllegalArgumentException if p is null
      */
     public void addBlacklistPattern(Pattern p) {
@@ -119,7 +124,7 @@ public class StringValidationRule {
      *
      * @param context The context to include in exception messages
      * @param input the input to check
-     * @param orig A origional input to include in exception messages. This is not included if it is the same as input.
+     * @param orig A original input to include in exception messages. This is not included if it is the same as input.
      * @return input upon a successful check
      * @throws ValidationException if the check fails.
      */
@@ -151,7 +156,7 @@ public class StringValidationRule {
      *
      * @param context The context to include in exception messages
      * @param input the input to check
-     * @param orig A origional input to include in exception messages. This is not included if it is the same as input.
+     * @param orig A original input to include in exception messages. This is not included if it is the same as input.
      * @return input upon a successful check
      * @throws ValidationException if the check fails.
      */

@@ -24,8 +24,8 @@ public class PushbackString {
     private int mark = 0;
 
     /**
-     *
-     * @param input
+     * Constructs a new instance of PushbackString
+     * @param input the String to decode
      */
     public PushbackString(String input) {
 	this.input = input;
@@ -33,7 +33,7 @@ public class PushbackString {
 
     /**
      *
-     * @param c
+     * @param c The character to set as the pushback
      */
     public void pushback(Character c) {
 	pushback = c;
@@ -50,7 +50,7 @@ public class PushbackString {
 
     /**
      *
-     * @return
+     * @return true if there are more characters to process
      */
     public boolean hasNext() {
 	if (pushback != null) {
@@ -70,7 +70,7 @@ public class PushbackString {
 
     /**
      *
-     * @return
+     * @return the next character
      */
     public Character next() {
 	if (pushback != null) {
@@ -92,7 +92,7 @@ public class PushbackString {
 
     /**
      *
-     * @return
+     * @return the next hex digit in the input, or null if the next character is not hex
      */
     public Character nextHex() {
 	Character c = next();
@@ -107,7 +107,7 @@ public class PushbackString {
 
     /**
      *
-     * @return
+     * @return the next octal digit in the input, or null if the next character is not octal
      */
     public Character nextOctal() {
 	Character c = next();
@@ -123,8 +123,8 @@ public class PushbackString {
     /**
      * Returns true if the parameter character is a hexidecimal digit 0 through 9, a through f, or A through F.
      *
-     * @param c
-     * @return
+     * @param c The Character to test
+     * @return true if the input character is a hex digit (0-F)
      */
     public static boolean isHexDigit(Character c) {
 	if (c == null) {
@@ -137,8 +137,8 @@ public class PushbackString {
     /**
      * Returns true if the parameter character is an octal digit 0 through 7.
      *
-     * @param c
-     * @return
+     * @param c The Character to test
+     * @return true if the input character is an octal digit (0-7)
      */
     public static boolean isOctalDigit(Character c) {
 	if (c == null) {
@@ -151,7 +151,7 @@ public class PushbackString {
     /**
      * Return the next character without affecting the current index.
      *
-     * @return
+     * @return the next Character in the input
      */
     public Character peek() {
 	if (pushback != null) {
@@ -172,8 +172,8 @@ public class PushbackString {
     /**
      * Test to see if the next character is a particular value without affecting the current index.
      *
-     * @param c
-     * @return
+     * @param c The character to test for
+     * @return true if the next character matches the input character
      */
     public boolean peek(char c) {
 	if (pushback != null && pushback.charValue() == c) {
@@ -209,7 +209,7 @@ public class PushbackString {
 
     /**
      *
-     * @return
+     * @return the remainder of the input String, prepended with any pushback, if necessary
      */
     protected String remainder() {
 	String output = input.substring(index);

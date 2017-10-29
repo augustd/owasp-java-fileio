@@ -64,7 +64,8 @@ public class FileValidator {
 
     /**
      * Initialize file validator with an appropriate set of codecs
-     * @param encoder
+     * 
+     * @param encoder The encoder instance to use
      */
     public FileValidator(Encoder encoder) {
 	fileEncoder = encoder;
@@ -112,10 +113,11 @@ public class FileValidator {
      * <p><b>Note:</b> On platforms that support symlinks, this function will fail canonicalization if directorypath is a symlink. For example, on MacOS X, /etc is actually /private/etc. If you mean
      * to use /etc, use its real path (/private/etc), not the symlink (/etc).</p>
      * 
-     * @param context
-     * @param input
-     * @param parent
-     * @param allowNull
+     * @param context A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the
+     * value passed in.
+     * @param input The actual input data to validate.
+     * @param parent A File indicating the parent directory into which the input File will be placed. 
+     * @param allowNull If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
      * 
      * @return true if no validation exceptions are thrown
      */
@@ -137,9 +139,9 @@ public class FileValidator {
      * @param context A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the
      * value passed in.
      * @param input The actual input data to validate.
-     * @param parent
+     * @param parent A File indicating the parent directory into which the input File will be placed. 
      * @param allowNull If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-     * @param errors
+     * @param errors A List to contain any validation errors. 
      * 
      * @return true if no validation exceptions are thrown
      */
@@ -162,12 +164,12 @@ public class FileValidator {
      * @param context A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the
      * value passed in.
      * @param input The actual input data to validate.
-     * @param parent
+     * @param parent A File indicating the parent directory into which the input File will be placed. 
      * @param allowNull If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
      *
      * @return A valid directory path
      *
-     * @throws ValidationException
+     * @throws ValidationException if validation errors occur
      */
     public String getValidDirectoryPath(String context, String input, File parent, boolean allowNull) throws ValidationException {
 	try {
@@ -212,13 +214,14 @@ public class FileValidator {
     /**
      * Calls getValidDirectoryPath with the supplied error List to capture ValidationExceptions
      * 
-     * @param context
-     * @param input
-     * @param parent
-     * @param allowNull
-     * @param errors 
+     * @param context A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the
+     * value passed in.
+     * @param input The actual input data to validate.
+     * @param parent A File indicating the parent directory into which the input File will be placed. 
+     * @param allowNull If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
+     * @param errors A List to contain any validation errors. 
      * 
-     * @return 
+     * @return A valid directory path
      */
     public String getValidDirectoryPath(String context, String input, File parent, boolean allowNull, List<ValidationException> errors) {
 
@@ -234,9 +237,10 @@ public class FileValidator {
     /**
      * Calls getValidFileName with the default list of allowedExtensions
      * 
-     * @param context
-     * @param input
-     * @param allowNull
+     * @param context A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the
+     * value passed in.
+     * @param input The actual input data to validate.
+     * @param allowNull If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
      * 
      * @return true if no validation exceptions occur
      */
@@ -247,10 +251,11 @@ public class FileValidator {
     /**
      * Calls getValidFileName with the default list of allowedExtensions
      * 
-     * @param context
-     * @param input
-     * @param allowNull
-     * @param errors
+     * @param context A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the
+     * value passed in.
+     * @param input The actual input data to validate.
+     * @param allowNull If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
+     * @param errors A List to contain any validation errors. 
      * 
      * @return true if no validation exceptions occur
      */
@@ -261,10 +266,11 @@ public class FileValidator {
     /**
      * Calls getValidFileName with the default list of allowedExtensions
      * 
-     * @param context
-     * @param input
-     * @param allowedExtensions
-     * @param allowNull
+     * @param context A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the
+     * value passed in.
+     * @param input The actual input data to validate.
+     * @param allowedExtensions A List of allowed file extensions to validate against
+     * @param allowNull If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
      * 
      * @return true if no validation exceptions occur
      */
@@ -280,11 +286,12 @@ public class FileValidator {
     /**
      * Calls getValidFileName with the default list of allowedExtensions
      * 
-     * @param context
-     * @param input
-     * @param allowedExtensions
-     * @param allowNull
-     * @param errors
+     * @param context A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the
+     * value passed in.
+     * @param input The actual input data to validate.
+     * @param allowedExtensions A List of allowed file extensions to validate against
+     * @param allowNull If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
+     * @param errors A List to contain any validation errors. 
      * 
      * @return true if no validation exceptions occur
      */
@@ -308,12 +315,12 @@ public class FileValidator {
      * @param context A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the
      * value passed in.
      * @param input The actual input data to validate.
-     * @param allowedExtensions
+     * @param allowedExtensions A List of allowed file extensions to validate against
      * @param allowNull If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
      *
      * @return A valid file name
      *
-     * @throws ValidationException
+     * @throws ValidationException if validation errors occur
      */
     public String getValidFileName(String context, String input, List<String> allowedExtensions, boolean allowNull) throws ValidationException {
 
@@ -363,17 +370,18 @@ public class FileValidator {
     /**
      * Calls getValidFileName with the supplied List to capture ValidationExceptions
      * 
-     * @param context
-     * @param input
-     * @param allowedParameters
-     * @param allowNull
-     * @param errors
+     * @param context A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the
+     * value passed in.
+     * @param input The actual input data to validate.
+     * @param allowedExtensions A List of allowed file extensions to validate against
+     * @param allowNull If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
+     * @param errors A List to contain any validation errors. 
      * 
-     * @return 
+     * @return A valid file name
      */
-    public String getValidFileName(String context, String input, List<String> allowedParameters, boolean allowNull, List<ValidationException> errors) {
+    public String getValidFileName(String context, String input, List<String> allowedExtensions, boolean allowNull, List<ValidationException> errors) {
 	try {
-	    return getValidFileName(context, input, allowedParameters, allowNull);
+	    return getValidFileName(context, input, allowedExtensions, allowNull);
 	} catch (ValidationException e) {
 	    errors.add(e);
 	}
@@ -387,17 +395,18 @@ public class FileValidator {
      * <p><b>Note:</b> On platforms that support symlinks, this function will fail canonicalization if directorypath is a symlink. For example, on MacOS X, /etc is actually /private/etc. If you mean
      * to use /etc, use its real path (/private/etc), not the symlink (/etc).</p>
      * 
-     * @param context
-     * @param directorypath
-     * @param filename
-     * @param parent
-     * @param content
-     * @param maxBytes
-     * @param allowNull
+     * @param context A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the
+     * value passed in.
+     * @param directorypath The file path of the uploaded file.
+     * @param filename The filename of the uploaded file
+     * @param parent A File indicating the parent directory into which the input File will be placed. 
+     * @param content A byte array containing the content of the uploaded file.
+     * @param maxBytes The max number of bytes allowed for a legal file upload.
+     * @param allowNull If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
      * 
      * @return true if no validation exceptions are thrown
      * 
-     * @throws org.owasp.fileio.ValidationException
+     * @throws ValidationException if validation errors occur
      */
     public boolean isValidFileUpload(String context, String directorypath, String filename, File parent, byte[] content, int maxBytes, boolean allowNull) throws ValidationException {
 	return (isValidFileName(context, filename, allowNull)
@@ -413,13 +422,13 @@ public class FileValidator {
      * 
      * @param context A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the
      * value passed in.
-     * @param directorypath
-     * @param filename
-     * @param parent
-     * @param content
-     * @param maxBytes
+     * @param directorypath The file path of the uploaded file.
+     * @param filename The filename of the uploaded file
+     * @param parent A File indicating the parent directory into which the input File will be placed. 
+     * @param content A byte array containing the content of the uploaded file.
+     * @param maxBytes The max number of bytes allowed for a legal file upload.
      * @param allowNull If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-     * @param errors
+     * @param errors A List to contain any validation errors. 
      * 
      * @return true if no validation exceptions are thrown
      */
@@ -436,13 +445,13 @@ public class FileValidator {
      * value passed in.
      * @param directorypath The file path of the uploaded file.
      * @param filename The filename of the uploaded file
-     * @param parent
+     * @param parent A File indicating the parent directory into which the input File will be placed. 
      * @param content A byte array containing the content of the uploaded file.
      * @param maxBytes The max number of bytes allowed for a legal file upload.
-     * @param allowedExtensions
+     * @param allowedExtensions A List of allowed file extensions to validate against
      * @param allowNull If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
      *
-     * @throws ValidationException
+     * @throws ValidationException if validation errors occur
      */
     public void assertValidFileUpload(String context, String directorypath, String filename, File parent, byte[] content, int maxBytes, List<String> allowedExtensions, boolean allowNull) throws ValidationException {
 	getValidFileName(context, filename, allowedExtensions, allowNull);
@@ -453,19 +462,20 @@ public class FileValidator {
     /**
      * Calls getValidFileUpload with the supplied List to capture ValidationExceptions
      * 
-     * @param context
-     * @param filepath
-     * @param filename
-     * @param parent
-     * @param content
-     * @param maxBytes
-     * @param allowedExtensions
-     * @param allowNull
-     * @param errors
+     * @param context A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the
+     * value passed in.
+     * @param directorypath The file path of the uploaded file.
+     * @param filename The filename of the uploaded file
+     * @param parent A File indicating the parent directory into which the input File will be placed. 
+     * @param content A byte array containing the content of the uploaded file.
+     * @param maxBytes The max number of bytes allowed for a legal file upload.
+     * @param allowedExtensions A List of allowed file extensions to validate against
+     * @param allowNull If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
+     * @param errors A List to contain any validation errors. 
      */
-    public void assertValidFileUpload(String context, String filepath, String filename, File parent, byte[] content, int maxBytes, List<String> allowedExtensions, boolean allowNull, List<ValidationException> errors) {
+    public void assertValidFileUpload(String context, String directorypath, String filename, File parent, byte[] content, int maxBytes, List<String> allowedExtensions, boolean allowNull, List<ValidationException> errors) {
 	try {
-	    assertValidFileUpload(context, filepath, filename, parent, content, maxBytes, allowedExtensions, allowNull);
+	    assertValidFileUpload(context, directorypath, filename, parent, content, maxBytes, allowedExtensions, allowNull);
 	} catch (ValidationException e) {
 	    errors.add(e);
 	}
@@ -474,10 +484,11 @@ public class FileValidator {
     /**
      * Calls getValidFileContent and returns true if no exceptions are thrown.
      * 
-     * @param context
-     * @param input
-     * @param maxBytes
-     * @param allowNull
+     * @param context A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the
+     * value passed in.
+     * @param input The actual input data to validate.
+     * @param maxBytes The max number of bytes allowed for a legal file upload.
+     * @param allowNull If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
      * 
      * @return true if no validation exceptions occur
      */
@@ -493,11 +504,12 @@ public class FileValidator {
     /**
      * Calls getValidFileContent and returns true if no exceptions are thrown.
      * 
-     * @param context
-     * @param input
-     * @param maxBytes
-     * @param allowNull
-     * @param errors
+     * @param context A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the
+     * value passed in.
+     * @param input The actual input data to validate.
+     * @param maxBytes The max number of bytes allowed for a legal file upload.
+     * @param allowNull If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
+     * @param errors A List to contain any validation errors. 
      * 
      * @return true if no validation exceptions occur
      */
@@ -523,7 +535,7 @@ public class FileValidator {
      *
      * @return A byte array containing valid file content.
      *
-     * @throws ValidationException
+     * @throws ValidationException if validation errors occur
      */
     public byte[] getValidFileContent(String context, byte[] input, boolean allowNull) throws ValidationException {
 	return getValidFileContent(context, input, getMaxFileUploadSize(), allowNull);
@@ -536,12 +548,12 @@ public class FileValidator {
      * @param context A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the
      * value passed in.
      * @param input The actual input data to validate.
-     * @param maxBytes The maximum number of bytes allowed in a legal file.
+     * @param maxBytes The max number of bytes allowed for a legal file upload.
      * @param allowNull If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
      *
      * @return A byte array containing valid file content.
      *
-     * @throws ValidationException
+     * @throws ValidationException if validation errors occur
      */
     public byte[] getValidFileContent(String context, byte[] input, long maxBytes, boolean allowNull) throws ValidationException {
 	if (Utils.isEmpty(input)) {
@@ -561,15 +573,16 @@ public class FileValidator {
     /**
      * Calls getValidFileContent with the supplied List to capture ValidationExceptions
      * 
-     * @param context
-     * @param input
-     * @param maxBytes
-     * @param allowNull
-     * @param errors
+     * @param context A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the
+     * value passed in.
+     * @param input The actual input data to validate.
+     * @param maxBytes The max number of bytes allowed for a legal file upload.
+     * @param allowNull If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
+     * @param errors A List to contain any validation errors. 
      * 
-     * @return 
+     * @return A byte array containing valid file content.
      * 
-     * @throws org.owasp.fileio.ValidationException
+     * @throws ValidationException if validation errors occur
      */
     public byte[] getValidFileContent(String context, byte[] input, int maxBytes, boolean allowNull, List<ValidationException> errors) throws ValidationException {
 	try {
@@ -593,7 +606,7 @@ public class FileValidator {
      * 
      * @return The canonicalized user input.
      * 
-     * @throws ValidationException
+     * @throws ValidationException if validation errors occur
      */
     public String getValidInput(String context, String input, String type, int maxLength, boolean allowNull) throws ValidationException {
 	return getValidInput(context, input, type, maxLength, allowNull, true);
@@ -611,7 +624,7 @@ public class FileValidator {
      * 
      * @return The user input, may be canonicalized if canonicalize argument is true
      * 
-     * @throws ValidationException
+     * @throws ValidationException if validation errors occur
      */
     public String getValidInput(String context, String input, String type, int maxLength, boolean allowNull, boolean canonicalize) throws ValidationException {
 	StringValidationRule rvr = new StringValidationRule(type, fileEncoder);
