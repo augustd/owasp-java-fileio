@@ -22,7 +22,7 @@ import java.util.Random;
  */
 public class FileTestUtils {
 
-    private static final Class CLASS = FileTestUtils.class;
+    private static final Class<?> CLASS = FileTestUtils.class;
     private static final String CLASS_NAME = CLASS.getName();
     private static final String DEFAULT_PREFIX = CLASS_NAME + '.';
     private static final String DEFAULT_SUFFIX = ".tmp";
