@@ -23,6 +23,7 @@ public class HTMLEntityCodec extends Codec {
 
     private static final char REPLACEMENT_CHAR = '\ufffd';
     private static final String REPLACEMENT_HEX = "fffd";
+    @SuppressWarnings("unused")
     private static final String REPLACEMENT_STR = "" + REPLACEMENT_CHAR;
     private static final Map<Character, String> characterToEntityMap = mkCharacterToEntityMap();
     private static final Trie<Character> entityToCharacterTrie = mkEntityToCharacterTrie();
@@ -61,7 +62,7 @@ public class HTMLEntityCodec extends Codec {
 	}
 
 	// check if there's a defined entity
-	String entityName = (String) characterToEntityMap.get(c);
+	String entityName = characterToEntityMap.get(c);
 	if (entityName != null) {
 	    return "&" + entityName + ";";
 	}

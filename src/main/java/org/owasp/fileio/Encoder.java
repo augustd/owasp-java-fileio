@@ -67,7 +67,7 @@ public class Encoder {
 	return singletonInstance;
     }
     // Codecs
-    private List codecs = new ArrayList();
+    private List<Codec> codecs = new ArrayList<>();
     private HTMLEntityCodec htmlCodec = new HTMLEntityCodec();
     private PercentCodec percentCodec = new PercentCodec();
 
@@ -123,9 +123,9 @@ public class Encoder {
 	    clean = true;
 
 	    // try each codec and keep track of which ones work
-	    Iterator i = codecs.iterator();
+	    Iterator<Codec> i = codecs.iterator();
 	    while (i.hasNext()) {
-		Codec codec = (Codec) i.next();
+		Codec codec = i.next();
 		String old = working;
 		working = codec.decode(working);
 		if (!old.equals(working)) {

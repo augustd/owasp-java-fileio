@@ -107,14 +107,15 @@ public class HashTrie<T> implements Trie<T> {
 	/**
 	 * *****************
 	 */
-	public boolean equals(Map.Entry other) {
+	public boolean equals(Map.Entry<CharSequence, T> other) {
 	    return (NullSafe.equals(key, other.getKey()) && NullSafe.equals(value, other.getValue()));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean equals(Object o) {
 	    if (o instanceof Map.Entry) {
-		return equals((Map.Entry) o);
+		return equals((Map.Entry<CharSequence, T>) o);
 	    }
 	    return false;
 	}
@@ -198,10 +199,10 @@ public class HashTrie<T> implements Trie<T> {
 	    ch = key.charAt(pos);
 	    if (nextMap == null) {
 		nextMap = newNodeMap();
-		nextNode = new Node();
+		nextNode = new Node<>();
 		nextMap.put(ch, nextNode);
 	    } else if ((nextNode = nextMap.get(ch)) == null) {
-		nextNode = new Node();
+		nextNode = new Node<>();
 		nextMap.put(ch, nextNode);
 	    }
 	    return nextNode.put(key, pos + 1, addValue);
@@ -291,6 +292,7 @@ public class HashTrie<T> implements Trie<T> {
 	/**
 	 * Recursively rebuild the internal maps.
 	 */
+	@SuppressWarnings("unused")
 	void remap() {
 	    if (nextMap == null) {
 		return;
@@ -378,7 +380,7 @@ public class HashTrie<T> implements Trie<T> {
 
 	    if (value != null) // MUST toString here
 	    {
-		entries.add(new Entry(key.toString(), value));
+		entries.add(new Entry<>(key.toString(), value));
 	    }
 	    if (nextMap != null && nextMap.size() > 0) {
 		key.append('X');
@@ -597,7 +599,8 @@ public class HashTrie<T> implements Trie<T> {
     /**
      * {@inheritDoc}
      */
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public boolean equals(Object other) {
 	if (other == null) {
 	    return false;
@@ -606,7 +609,7 @@ public class HashTrie<T> implements Trie<T> {
 	    return false;
 	}
 	// per spec
-	return entrySet().equals(((Map) other).entrySet());
+	return entrySet().equals(((Map<CharSequence, T>) other).entrySet());
     }
 
     /**

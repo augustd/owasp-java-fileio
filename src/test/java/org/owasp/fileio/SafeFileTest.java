@@ -13,39 +13,34 @@
 package org.owasp.fileio;
 
 import org.owasp.fileio.util.FileTestUtils;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.util.Iterator;
 import java.util.Set;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.owasp.fileio.util.CollectionsUtil;
 
-public class SafeFileTest extends TestCase {
+public class SafeFileTest {
 
-    private static final Class CLASS = SafeFileTest.class;
+    private static final Class<?> CLASS = SafeFileTest.class;
     private static final String CLASS_NAME = CLASS.getName();
     
     /**
      * Name of the file in the temporary directory
      */
     private static final String TEST_FILE_NAME = "test.file";
-    private static final Set GOOD_FILE_CHARS = CollectionsUtil.strToUnmodifiableSet("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-" /* + "." */);
-    private static final Set BAD_FILE_CHARS = CollectionsUtil.strToUnmodifiableSet("\u0000" + /*(File.separatorChar == '/' ? '\\' : '/') +*/ "*|<>?:" /*+ "~!@#$%^&(){}[],`;"*/);
+    private static final Set<Character> GOOD_FILE_CHARS = CollectionsUtil.strToUnmodifiableSet("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-" /* + "." */);
+    private static final Set<Character> BAD_FILE_CHARS = CollectionsUtil.strToUnmodifiableSet("\u0000" + /*(File.separatorChar == '/' ? '\\' : '/') +*/ "*|<>?:" /*+ "~!@#$%^&(){}[],`;"*/);
     private File testDir = null;
     private File testFile = null;
     String pathWithNullByte = "/temp/file.txt" + (char) 0;
 
-    /**
-     * {@inheritDoc}
-     */
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
 	// create a file to test with
 	testDir = FileTestUtils.createTmpDirectory(CLASS_NAME).getCanonicalFile();
 	testFile = new File(testDir, TEST_FILE_NAME);
@@ -53,18 +48,12 @@ public class SafeFileTest extends TestCase {
 	testFile = testFile.getCanonicalFile();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
 	FileTestUtils.deleteRecursively(testDir);
     }
 
-    public static Test suite() {
-	TestSuite suite = new TestSuite(SafeFileTest.class);
-	return suite;
-    }
-
+    @Test
     public void testEscapeCharactersInFilename() {
 	System.out.println("testEscapeCharactersInFilenameInjection");
 	File tf = testFile;
@@ -80,6 +69,7 @@ public class SafeFileTest extends TestCase {
 	}
     }
 
+    @Test
     public void testEscapeCharacterInDirectoryInjection() {
 	System.out.println("testEscapeCharacterInDirectoryInjection");
 	File sf = new File(testDir, "test\\^.^.\\file");
@@ -90,8 +80,9 @@ public class SafeFileTest extends TestCase {
 	}
     }
 
+    @Test
     public void testJavaFileInjectionGood() throws ValidationException {
-	for (Iterator i = GOOD_FILE_CHARS.iterator(); i.hasNext();) {
+	for (Iterator<Character> i = GOOD_FILE_CHARS.iterator(); i.hasNext();) {
 	    String ch = i.next().toString();	// avoids generic issues in 1.4&1.5
 	    File sf = new SafeFile(testDir, TEST_FILE_NAME + ch);
 	    assertFalse("File \"" + TEST_FILE_NAME + ch + "\" should not exist ((int)ch=" + (int) ch.charAt(0) + ").", sf.exists());
@@ -100,24 +91,26 @@ public class SafeFileTest extends TestCase {
 	}
     }
 
+    @Test
     public void testJavaFileInjectionBad() {
-	for (Iterator i = BAD_FILE_CHARS.iterator(); i.hasNext();) {
+	for (Iterator<Character> i = BAD_FILE_CHARS.iterator(); i.hasNext();) {
 	    String ch = i.next().toString();	// avoids generic issues in 1.4&1.5
 	    try {
-		File sf = new SafeFile(testDir, TEST_FILE_NAME + ch);
+		new SafeFile(testDir, TEST_FILE_NAME + ch);
 		fail("Able to create SafeFile \"" + TEST_FILE_NAME + ch + "\" ((int)ch=" + (int) ch.charAt(0) + ").");
 	    } catch (ValidationException expected) {
 	    }
 	    try {
-		File sf = new SafeFile(testDir, TEST_FILE_NAME + ch + "test");
+		new SafeFile(testDir, TEST_FILE_NAME + ch + "test");
 		fail("Able to create SafeFile \"" + TEST_FILE_NAME + ch + "\" ((int)ch=" + (int) ch.charAt(0) + ").");
 	    } catch (ValidationException expected) {
 	    }
 	}
     }
 
+    @Test
     public void testMultipleJavaFileInjectionGood() throws ValidationException {
-	for (Iterator i = GOOD_FILE_CHARS.iterator(); i.hasNext();) {
+	for (Iterator<Character> i = GOOD_FILE_CHARS.iterator(); i.hasNext();) {
 	    String ch = i.next().toString();	// avoids generic issues in 1.4&1.5
 	    ch = ch + ch + ch;
 	    File sf = new SafeFile(testDir, TEST_FILE_NAME + ch);
@@ -127,23 +120,25 @@ public class SafeFileTest extends TestCase {
 	}
     }
 
+    @Test
     public void testMultipleJavaFileInjectionBad() {
-	for (Iterator i = BAD_FILE_CHARS.iterator(); i.hasNext();) {
+	for (Iterator<Character> i = BAD_FILE_CHARS.iterator(); i.hasNext();) {
 	    String ch = i.next().toString();	// avoids generic issues in 1.4&1.5
 	    ch = ch + ch + ch;
 	    try {
-		File sf = new SafeFile(testDir, TEST_FILE_NAME + ch);
+		new SafeFile(testDir, TEST_FILE_NAME + ch);
 		fail("Able to create SafeFile \"" + TEST_FILE_NAME + ch + "\" ((int)ch=" + (int) ch.charAt(0) + ").");
 	    } catch (ValidationException expected) {
 	    }
 	    try {
-		File sf = new SafeFile(testDir, TEST_FILE_NAME + ch + "test");
+		new SafeFile(testDir, TEST_FILE_NAME + ch + "test");
 		fail("Able to create SafeFile \"" + TEST_FILE_NAME + ch + "\" ((int)ch=" + (int) ch.charAt(0) + ").");
 	    } catch (ValidationException expected) {
 	    }
 	}
     }
 
+    @Test
     public void testAlternateDataStream() {
 	try {
 	    File sf = new SafeFile(testDir, TEST_FILE_NAME + ":secret.txt");
@@ -152,9 +147,10 @@ public class SafeFileTest extends TestCase {
 	}
     }
     
+    @Test
     public void testSafeFileWithoutPath() {
         try {
-            File sf = new SafeFile("hello.txt");
+            new SafeFile("hello.txt");
         } catch (ValidationException expected) {
 	}
     }
@@ -165,64 +161,73 @@ public class SafeFileTest extends TestCase {
 	return new String(array);
     }
 
+    @Test
     public void testCreatePath() throws Exception {
 	SafeFile sf = new SafeFile(testFile.getPath());
 	assertTrue(sf.exists());
     }
 
+    @Test
     public void testCreateParentPathName() throws Exception {
 	SafeFile sf = new SafeFile(testDir, testFile.getName());
 	assertTrue(sf.exists());
     }
 
+    @Test
     public void testCreateParentFileName() throws Exception {
 	SafeFile sf = new SafeFile(testFile.getParentFile(), testFile.getName());
 	assertTrue(sf.exists());
     }
 
+    @Test
     public void testCreateURI() throws Exception {
 	SafeFile sf = new SafeFile(testFile.toURI());
 	assertTrue(sf.exists());
     }
 
+    @Test
     public void testCreateFileNamePercentNull() {
 	try {
-	    SafeFile sf = new SafeFile(testDir + File.separator + "file%00.txt");
+	    new SafeFile(testDir + File.separator + "file%00.txt");
 	    fail("no exception thrown for file name with percent encoded null");
 	} catch (ValidationException expected) {
 	}
     }
 
+    @Test
     public void testCreateFileNameQuestion() {
 	try {
-	    SafeFile sf = new SafeFile(testFile.getParent() + File.separator + "file?.txt");
+	    new SafeFile(testFile.getParent() + File.separator + "file?.txt");
 	    fail("no exception thrown for file name with question mark in it");
 	} catch (ValidationException e) {
 	    // expected
 	}
     }
 
+    @Test
     public void testCreateFileNameNull() {
 	try {
-	    SafeFile sf = new SafeFile(testFile.getParent() + File.separator + "file" + ((char) 0) + ".txt");
+	    new SafeFile(testFile.getParent() + File.separator + "file" + ((char) 0) + ".txt");
 	    fail("no exception thrown for file name with null in it");
 	} catch (ValidationException e) {
 	    // expected
 	}
     }
 
+    @Test
     public void testCreateFileHighByte() {
 	try {
-	    SafeFile sf = new SafeFile(testFile.getParent() + File.separator + "file" + ((char) 160) + ".txt");
+	    new SafeFile(testFile.getParent() + File.separator + "file" + ((char) 160) + ".txt");
 	    fail("no exception thrown for file name with high byte in it");
 	} catch (ValidationException e) {
 	    // expected
 	}
     }
 
+    @Test
     public void testCreateParentPercentNull() {
 	try {
-	    SafeFile sf = new SafeFile(testFile.getParent() + File.separator + "file%00.txt");
+	    new SafeFile(testFile.getParent() + File.separator + "file%00.txt");
 	    fail("no exception thrown for file name with percent encoded null");
 	} catch (ValidationException e) {
 	    // expected

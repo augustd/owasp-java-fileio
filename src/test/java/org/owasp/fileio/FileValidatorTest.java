@@ -5,12 +5,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 import static org.junit.Assert.*;
+
+import org.junit.Test;
 import org.owasp.fileio.codecs.Codec;
 import org.owasp.fileio.codecs.HTMLEntityCodec;
 
@@ -18,15 +15,11 @@ import org.owasp.fileio.codecs.HTMLEntityCodec;
  *
  * @author August Detlefsen <augustd at codemagi dot com>
  */
-public class FileValidatorTest extends TestCase {
+public class FileValidatorTest {
 
     private static final String PREFERRED_ENCODING = "UTF-8";
 
-    public static junit.framework.Test suite() {
-	TestSuite suite = new TestSuite(FileValidatorTest.class);
-	return suite;
-    }
-
+    @Test
     public void testIsValidFileName() {
 	System.out.println("isValidFileName");
 	FileValidator instance = new FileValidator();
@@ -41,6 +34,7 @@ public class FileValidatorTest extends TestCase {
 	assertTrue(errors.isEmpty());
     }
 
+    @Test
     public void testIsValidFileUpload() throws IOException {
 	System.out.println("isValidFileUpload");
 	String filepath = new File(System.getProperty("user.dir")).getCanonicalPath();
@@ -78,6 +72,7 @@ public class FileValidatorTest extends TestCase {
 	assertTrue(errors.size() == 1);
     }
 
+    @Test
     public void testIsInvalidFilename() {
 	System.out.println("testIsInvalidFilename");
 	FileValidator instance = new FileValidator();
@@ -91,6 +86,7 @@ public class FileValidatorTest extends TestCase {
 	assertFalse("Filennames cannot be the empty string", instance.isValidFileName("test", "", false));
     }
 
+    @Test
     public void testIsValidDirectoryPath() throws IOException {
 	System.out.println("isValidDirectoryPath");
 
@@ -204,6 +200,7 @@ public class FileValidatorTest extends TestCase {
 	}
     }
 
+    @Test
     public void TestIsValidDirectoryPath() {
 	// isValidDirectoryPath(String, String, boolean)
     }

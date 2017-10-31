@@ -307,7 +307,7 @@ public class StringValidationRule {
      * {@inheritDoc}
      */
     public String whitelist(String input, char[] whitelist) {
-	Set whiteSet = Utils.arrayToSet(whitelist);
+	Set<Character> whiteSet = Utils.arrayToSet(whitelist);
 	return whitelist(input, whiteSet);
     }
 
